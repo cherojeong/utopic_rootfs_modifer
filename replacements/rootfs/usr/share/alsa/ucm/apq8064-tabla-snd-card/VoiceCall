@@ -1,0 +1,230 @@
+# There is no mixer setup here - it is handled by PulseAudio's audio HAL module.
+
+SectionVerb {
+	EnableSequence [
+		cdev "hw:apq8064tablasnd"
+		cset "name='STUB_RX Mixer Voice Stub' 1"
+		cset "name='Voice Stub Tx Mixer STUB_TX_HL' 1"
+		cset "name='Voice Stub Tx Mixer STUB_1_TX_HL' 1"		
+	]
+
+	DisableSequence [
+		cdev "hw:apq8064tablasnd"
+		cset "name='STUB_RX Mixer Voice Stub' 0"
+		cset "name='Voice Stub Tx Mixer STUB_TX_HL' 0"
+		cset "name='Voice Stub Tx Mixer STUB_1_TX_HL' 0"
+	]
+
+	Value {
+		TQ "VoiceCall"
+		CapturePCM "hw:apq8064tablasnd,0"
+		PlaybackPCM "hw:apq8064tablasnd,0"
+	}
+}
+
+SectionDevice."Earpiece" {
+	#Name "Earpiece"
+	Comment "Earpiece speaker"
+
+	# FIXME
+	ConflictingDevice [
+		"Headphones"
+		"Speaker"
+	]
+
+	EnableSequence [
+		cset "name='STUB_RX Mixer Voice Stub' 0"
+		cset "name='SLIM_0_RX Channels' One"
+		cset "name='RX1 MIX1 INP1' RX1"
+		cset "name='RX1 MIX1 INP2' RX6"
+		cset "name='EAR PA Gain' POS_2_DB"
+		cset "name='DAC1 Switch' 1"
+		cset "name='SLIM TX3 MUX' RMIX1"
+		cset "name='STUB_RX Mixer Voice Stub' 1"
+	]
+
+	DisableSequence [
+		cset "name='STUB_RX Mixer Voice Stub' 0"
+		cset "name='RX1 MIX1 INP1' ZERO"
+		cset "name='RX1 MIX1 INP2' ZERO"
+		cset "name='DAC1 Switch' 0"
+		cset "name='SLIM TX3 MUX' ZERO"
+		cset "name='STUB_RX Mixer Voice Stub' 1"
+	]
+
+	Value {
+		PlaybackChannels "1"
+	}
+}
+
+SectionDevice."Speaker" {
+	#Name "Speaker"
+	Comment "Main speaker"
+
+	# FIXME
+	ConflictingDevice [
+		"Earpiece"
+		"Headphones"
+	]
+
+	EnableSequence [
+		cdev "hw:apq8064tablasnd"
+
+		# We need to disable this while setting up the route, else the
+		# driver will hang if the stream is open.
+		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0"
+
+		cset "name='SLIM_0_RX Channels' One"
+		cset "name='RX5 MIX1 INP1' RX1"
+		cset "name='RX5 MIX1 INP2' RX6"
+		cset "name='RX6 DSM MUX' DSM_INV"
+		cset "name='LINEOUT2 Volume' 66"
+		cset "name='LINEOUT4 Volume' 66"
+
+		# Route has been set up, re-enable the mixer.
+		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 1"
+	]
+
+	DisableSequence [
+		cdev "hw:apq8064tablasnd"
+
+		# See comment in EnableSequence
+		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 0"
+
+		cset "name='RX5 MIX1 INP1' ZERO"
+		cset "name='RX5 MIX1 INP2' ZERO"
+		cset "name='RX6 DSM MUX' CIC_OUT"
+		cset "name='LINEOUT2 Volume' 0"
+		cset "name='LINEOUT4 Volume' 0"
+
+		# See comment in EnableSequence
+		cset "name='SLIMBUS_0_RX Audio Mixer MultiMedia1' 1"
+	]
+
+	Value {
+		PlaybackChannels "1"
+	}
+}
+
+SectionDevice."Line" {
+	#Name "Line"
+	Comment "Speaker Tx Device"
+
+	# FIXME
+	ConflictingDevice [
+		"Earpiece"
+		"Headphones"
+	]
+
+	EnableSequence [
+		cdev "hw:apq8064tablasnd"
+		
+		cset "name='Voice Stub Tx Mixer STUB_TX_HL' 0"
+		cset "name='Voice Stub Tx Mixer STUB_1_TX_HL' 0"	
+
+		cset "name='SLIM_0_TX Channels' One"
+		cset "name='SLIM TX7 MUX' DEC4"
+		cset "name='DEC4 MUX' ADC3"
+		cset "name='ADC3 Volume' 100"
+		cset "name='MICBIAS3 CAPLESS Switch' 1"
+
+		cset "name='Voice Stub Tx Mixer STUB_TX_HL' 1"
+		cset "name='Voice Stub Tx Mixer STUB_1_TX_HL' 1"	
+	]
+	DisableSequence [
+		cdev "hw:apq8064tablasnd"
+
+		cset "name='Voice Stub Tx Mixer STUB_TX_HL' 0"
+		cset "name='Voice Stub Tx Mixer STUB_1_TX_HL' 0"	
+
+		cset "name='SLIM TX7 MUX' ZERO"
+		cset "name='DEC4 MUX' ZERO"
+		cset "name='ADC3 Volume' 0"
+		cset "name='MICBIAS3 CAPLESS Switch' 0"
+
+		cset "name='Voice Stub Tx Mixer STUB_TX_HL' 1"
+		cset "name='Voice Stub Tx Mixer STUB_1_TX_HL' 1"	
+	]
+
+	Value {
+		PlaybackChannels "1"
+	}
+}
+
+SectionDevice."Headphones" {
+	#Name "Headphones"
+	Comment "Headphones"
+
+	# FIXME
+	ConflictingDevice [
+		"Earpiece"
+		"Speaker"
+	]
+
+	EnableSequence [
+	]
+
+	DisableSequence [
+	]
+
+	Value {
+		PlaybackChannels "2"
+	}
+}
+
+SectionDevice."Headset" {
+	#Name "Headset"
+	Comment "Headset Microphone"
+
+	ConflictingDevice [
+		"Handset"
+	]
+
+	EnableSequence [
+	]
+
+	DisableSequence [
+	]
+
+	Value {
+		CaptureChannels "1"
+	}
+}
+
+SectionDevice."Handset" {
+	#Name "Handset"
+	Comment "Handset Microphone"
+
+	ConflictingDevice [
+		"Headset"
+	]
+
+	EnableSequence [
+		cset "name='Voice Stub Tx Mixer STUB_TX_HL' 0"
+		cset "name='Voice Stub Tx Mixer STUB_1_TX_HL' 0"	
+		cset "name='SLIM_0_TX Channels' One"
+		cset "name='SLIM TX7 MUX' DEC4"
+		cset "name='DEC4 MUX' ADC3"
+		cset "name='ADC3 Volume' 100"
+		cset "name='MICBIAS3 CAPLESS Switch' 1"
+		cset "name='IIR1 INP1 Volume' 50"
+		cset "name='Voice Stub Tx Mixer STUB_TX_HL' 1"
+		cset "name='Voice Stub Tx Mixer STUB_1_TX_HL' 1"	
+	]
+
+	DisableSequence [
+		cset "name='Voice Stub Tx Mixer STUB_TX_HL' 0"
+		cset "name='Voice Stub Tx Mixer STUB_1_TX_HL' 0"	
+		cset "name='SLIM TX7 MUX' ZERO"
+		cset "name='DEC4 MUX' ZERO"
+		cset "name='ADC3 Volume' 0"
+		cset "name='MICBIAS3 CAPLESS Switch' 0"
+		cset "name='IIR1 INP1 Volume' 0"
+		cset "name='Voice Stub Tx Mixer STUB_TX_HL' 1"
+		cset "name='Voice Stub Tx Mixer STUB_1_TX_HL' 1"	
+	]
+
+	Value {
+		CaptureChannels "1"
+	}
+}

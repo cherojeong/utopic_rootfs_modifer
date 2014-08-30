@@ -1,0 +1,8 @@
+  # Vega Iron (vega)
+  /dev/msm_acdb rw,
+  /dev/msm_rtac rw,
+  /dev/msm_evrc_in rw,
+  /dev/msm_qcelp_in rw,
+  /dev/msm_wma rw,
+  /dev/msm_wmapro rw,
+  /dev/msm_amrwbplus rw,

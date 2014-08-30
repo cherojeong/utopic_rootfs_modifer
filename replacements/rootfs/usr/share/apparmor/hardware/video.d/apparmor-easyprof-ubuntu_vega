@@ -1,0 +1,4 @@
+  # Vega Iron (vega)
+  /dev/msm_vidc_dec* rw,
+  /dev/msm_vidc_enc* rw,
+  /dev/msm_rotator* rw,

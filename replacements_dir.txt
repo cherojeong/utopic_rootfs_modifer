@@ -1,0 +1,67 @@
+.
+├── etc
+│   ├── apt
+│   │   ├── apt.conf.d
+│   │   │   └── 02nocache
+│   │   └── sources.list
+│   ├── fstab
+│   ├── init
+│   │   └── bluetooth-touch-vega.conf
+│   └── ubuntu-touch-session.d
+│       └── vega.conf
+├── lib
+│   └── udev
+│       └── rules.d
+└── usr
+    ├── lib
+    │   ├── arm-linux-gnueabihf
+    │   │   ├── libmirclient.so.8
+    │   │   ├── libmircommon.so.1
+    │   │   ├── libmirplatform.so.1
+    │   │   ├── libmirserver.so.24
+    │   │   ├── mir
+    │   │   │   ├── clientplatform
+    │   │   │   │   ├── android
+    │   │   │   │   │   └── libmirclientplatform.so
+    │   │   │   │   └── mesa
+    │   │   │   │       └── libmirclientplatform.so
+    │   │   │   └── platformgraphics
+    │   │   │       ├── android
+    │   │   │       │   └── libmirplatformgraphics.so
+    │   │   │       └── mesa
+    │   │   │           └── libmirplatformgraphics.so
+    │   │   └── tools
+    │   │       ├── libmirclientlttng.so
+    │   │       └── libmirserverlttng.so
+    │   └── lxc-android-config
+    │       └── 70-vega.rules
+    └── share
+        ├── alsa
+        │   └── ucm
+        │       └── apq8064-tabla-snd-card
+        │           ├── HiFi
+        │           └── VoiceCall
+        ├── apparmor
+        │   └── hardware
+        │       ├── audio.d
+        │       │   └── apparmor-easyprof-ubuntu_vega
+        │       ├── graphics.d
+        │       │   └── apparmor-easyprof-ubuntu_vega
+        │       └── video.d
+        │           └── apparmor-easyprof-ubuntu_vega
+        ├── fonts
+        │   └── truetype
+        │       └── nanum
+        │           ├── NanumGothicBold.ttf
+        │           ├── NanumGothic.ttf
+        │           ├── NanumMyeongjoBold.ttf
+        │           └── NanumMyeongjo.ttf
+        ├── initramfs-tools-ubuntu-touch
+        │   └── bootimg.cfg-vega
+        ├── mobile-broadband-provider-info
+        │   └── serviceproviders.xml
+        └── powerd
+            └── device_configs
+                └── config-vega.xml
+
+36 directories, 28 files

@@ -1,0 +1,12 @@
+# override the forced fsck from /lib/init/fstab, we use a bindmount which confuses mountall
+/dev/root       /	rootfs	defaults	0	0
+
+# swap file
+/SWAP.swap		none	swap	sw		0	0
+/dev/mmcblk0p14	/system	ext4	ro,noatime,nodiratime,errors=remount-ro	0	0
+/dev/mmcblk0p26 /data   ext4	noatime,nodiratime,errors=remount-ro
+#/dev/mmcblk0p1  /firmware vfat  ro,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337 0 0
+/dev/mmcblk0p15 /persist ext4   nosuid,nodev,barrier=1,data=ordered,nodelalloc 0 0
+#/dev/mmcblk0p16 /cache   ext4   noatime,nosuid,nodev,barrier=1,data=ordered  0 0
+/system/vendor	/vendor	auto	ro,bind	0	0
+
