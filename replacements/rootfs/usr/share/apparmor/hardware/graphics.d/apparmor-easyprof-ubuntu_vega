@@ -3,5 +3,6 @@
   /dev/ion rw,
   /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk r,
   /etc/udev/udev.conf r,
-  /sys/devices/i2c-4/4-0078/video4linux/video0/uevent r
+  /sys/devices/i2c-4/4-0078/video4linux/video0/uevent r,
+
 

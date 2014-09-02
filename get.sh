@@ -23,14 +23,16 @@ DATE=$1
 
 DOWNLOAD_URL="http://cdimage.ubuntu.com/ubuntu-touch/daily-preinstalled"
 DOWNLOAD_FILENAME=utopic-preinstalled-touch-armhf.tar.gz
-
+DOWNLOAD_MANIFEST=utopic-preinstalled-touch-armhf.manifest
 
 download_preinstalled_tgz()
 {
 	if [ -z "$DATE" ]; then
+		wget $DOWNLOAD_URL/current/$DOWNLOAD_MANIFEST
 		wget $DOWNLOAD_URL/current/$DOWNLOAD_FILENAME
 	else
- 		wget $DOWNLOAD_URL/$DATE/$DOADLOAD_FILENAME
+ 		wget $DOWNLOAD_URL/$DATE/$DOWNLOAD_MANIFEST
+ 		wget $DOWNLOAD_URL/$DATE/$DOWNLOAD_FILENAME
 	fi
 }
 

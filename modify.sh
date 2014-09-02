@@ -22,11 +22,20 @@ cp -f ../utopic-preinstalled-touch-armhf.tar.gz .
 mkdir targz
 cd targz
 
-tar xfz ../utopic-preinstalled-touch-armhf.tar.gz --same-owner
+tar xfz ../utopic-preinstalled-touch-armhf.tar.gz --exclude='dev/*' --same-owner
 
 rm ../utopic-preinstalled-touch-armhf.tar.gz
 
 echo "Overwriting & Updating files ..."
+
+
+rm -r \
+	var/cache/apt/pkgcache.bin \
+	var/cache/apt/srcpkgcache.bin \
+	var/lib/apt/lists/* \
+	var/log/lastlog \
+	usr/share/icons/gnome \
+	usr/share/icons/Humanity
 
 cp -r ../../replacements/rootfs/* .
 
