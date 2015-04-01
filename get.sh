@@ -19,6 +19,15 @@
 
 set -e
 
+
+usage() {
+  echo "usage: $(basename $0) or $(basename $0) directoryname"
+  echo "run with no argument, and then take the files in current directory"
+  echo "run with diretoryname(ex $(basename $0) 20140928) and then take the file in 20140928 directory"
+  echo "-h this message"
+
+}
+
 DATE=$1
 
 DOWNLOAD_URL="http://cdimage.ubuntu.com/ubuntu-touch/daily-preinstalled"
